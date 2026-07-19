@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pastor Haroldo Lopes Morais - Pastor Presidente</title>
+    <meta name="description" content="Pastor Haroldo Lopes Morais - Pastor Presidente da Igreja Evangélica Assembleia de Deus Renovação Nova Fé em Porto Belo, SC">
+    <meta name="keywords" content="Pastor Haroldo, Igreja Assembleia de Deus, Porto Belo, Renovação Nova Fé, pastor presidente">
+    <style>
+        /* CSS Reset e Base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #ffffff;
+        }
+
+        /* Cores principais */
+        :root {
+            --cor-verde-claro: #e9f8ee;
+            --cor-branco: #ffffff;
+            --cor-texto: #333333;
+            --cor-texto-secundario: #666666;
+            --cor-destaque: #2d5a3d;
+        }
+
+        /* Gradiente principal */
+        .gradiente-ui {
+            background: linear-gradient(60deg, var(--cor-verde-claro) 0%, var(--cor-branco) 100%);
+        }
+
+        /* Header com gradiente */
+        .header {
+            padding: 3rem 1rem;
+            position: relative;
+            min-height: 300px;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .header-content {
+            text-align: center;
+            width: 100%;
+        }
+
+        /* Informações principais */
+        .info-principal h1 {
+            font-size: 3rem;
+            color: var(--cor-destaque);
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .info-principal h2 {
+            font-size: 1.8rem;
+            color: var(--cor-texto-secundario);
+            font-weight: 400;
+            margin-bottom: 1rem;
+        }
+
+        .igreja-nome {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--cor-destaque);
+            margin-bottom: 2rem;
+        }
+
+        .dados-pessoais {
+            background-color: rgba(255,255,255,0.9);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            margin: 2rem auto;
+            max-width: 600px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .dados-pessoais p {
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .dados-pessoais strong {
+            color: var(--cor-destaque);
+        }
+
+        /* Navegação */
+        .nav-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .nav-button {
+            display: inline-block;
+            background: var(--cor-destaque);
+            color: white;
+            padding: 1rem 2.5rem;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+        }
+
+        .nav-button:hover {
+            background: #1e3d29;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(45, 90, 61, 0.4);
+        }
+
+        .nav-button.secondary {
+            background: transparent;
+            color: var(--cor-destaque);
+            border: 2px solid var(--cor-destaque);
+        }
+
+        .nav-button.secondary:hover {
+            background: var(--cor-destaque);
+            color: white;
+        }
+
+        /* Seções de conteúdo */
+        .secao {
+            padding: 4rem 1rem;
+        }
+
+        .secao:nth-child(even) {
+            background-color: var(--cor-verde-claro);
+        }
+
+        .secao h3 {
+            font-size: 2.5rem;
+            color: var(--cor-destaque);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .secao p {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            text-align: justify;
+            line-height: 1.8;
+        }
+
+        .credencial-info {
+            background: white;
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            margin-top: 2rem;
+        }
+
+        .credencial-info h4 {
+            color: var(--cor-destaque);
+            margin-bottom: 2rem;
+            font-size: 1.8rem;
+            text-align: center;
+        }
+
+        .credencial-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .credencial-grid p {
+            margin-bottom: 1rem;
+            text-align: left;
+            font-size: 1.1rem;
+        }
+
+        .credencial-destaque {
+            grid-column: 1 / -1;
+            text-align: center;
+            font-style: italic;
+            color: var(--cor-texto-secundario);
+            border-top: 2px solid var(--cor-verde-claro);
+            padding-top: 2rem;
+            margin-top: 2rem;
+        }
+
+        /* Seção de contato */
+        .contato {
+            background: var(--cor-destaque);
+            color: white;
+            text-align: center;
+        }
+
+        .contato h3 {
+            color: white;
+        }
+
+        .contato-info {
+            background: rgba(255,255,255,0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            margin-top: 2rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: #1e3d29;
+            color: white;
+            text-align: center;
+            padding: 2rem 1rem;
+        }
+
+        .footer p {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .info-principal h1 {
+                font-size: 2.2rem;
+            }
+
+            .info-principal h2 {
+                font-size: 1.3rem;
+            }
+
+            .igreja-nome {
+                font-size: 1.1rem;
+            }
+
+            .dados-pessoais {
+                grid-template-columns: 1fr;
+                padding: 1.5rem;
+            }
+
+            .credencial-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .nav-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .nav-button {
+                width: 250px;
+                text-align: center;
+            }
+
+            .secao {
+                padding: 2.5rem 1rem;
+            }
+
+            .secao h3 {
+                font-size: 2rem;
+            }
+
+            .secao p {
+                font-size: 1.1rem;
+            }
+
+            .credencial-info {
+                padding: 2rem 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header {
+                padding: 2rem 1rem;
+                min-height: auto;
+            }
+
+            .info-principal h1 {
+                font-size: 1.8rem;
+            }
+
+            .dados-pessoais {
+                padding: 1rem;
+            }
+
+            .credencial-info {
+                padding: 1.5rem 1rem;
+            }
+        }
+
+        .logo-igreja {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+        }
+
+        .foto-pastor {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 1.5rem;
+            display: block;
+            border: 4px solid var(--cor-branco);
+            box-shadow: 0 6px 25px rgba(0,0,0,0.2);
+        }
+
+        /* Animações */
+        .fade-in {
+            opacity: 0;
+            animation: fadeIn 1s ease-in forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+
+        .slide-up {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: slideUp 0.8s ease-out forwards;
+        }
+
+        @keyframes slideUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header com gradiente -->
+    <header class="header gradiente-ui">
+        <div class="container">
+            <div class="header-content fade-in">
+                <img src="assets/img/logo.png" alt="Logo IEADB Renovação Nova Fé" class="logo-igreja">
+                <img src="assets/img/pastor.jpg" alt="Pastor Haroldo Lopes Morais" class="foto-pastor">
+                <h1>Pastor Haroldo Lopes Morais</h1>
+                <h2>Pastor Presidente</h2>
+                <p class="igreja-nome">
+                    Igreja Evangélica Assembleia de Deus — Renovação Nova Fé
+                </p>
+                
+                <div class="dados-pessoais slide-up">
+                    <p><strong>Estado Civil:</strong> Casado com a Pastora Graziela Morais</p>
+                    <p><strong>Filhos:</strong> Lucas, Bruno e Arthur</p>
+                    <p><strong>Formação:</strong> Bacharel em Teologia</p>
+                    <p><strong>Natural:</strong> Cananeia (SP)</p>
+                    <p><strong>Residência:</strong> Porto Belo, SC</p>
+                    <p><strong>Ministério:</strong> Pastor Presidente</p>
+                </div>
+
+                <div class="nav-buttons">
+                    <a href="#missao" class="nav-button">Nossa Missão</a>
+                    <a href="#credencial" class="nav-button secondary">Credencial</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Seção Missão/Sobre a Igreja -->
+    <section id="missao" class="secao">
+        <div class="container">
+            <h3>Missão / Sobre a Igreja</h3>
+            <p>
+                A Igreja Evangélica Assembleia de Deus — Renovação Nova Fé tem como missão principal levar a palavra de Deus 
+                a todos os corações, promovendo a transformação de vidas através do amor de Cristo. Sob a liderança do Pastor 
+                Haroldo Lopes Morais, nossa congregação se dedica ao crescimento espiritual e ao fortalecimento da fé de cada membro.
+            </p>
+            <p>
+                Nossa igreja busca ser um refúgio de esperança e renovação para toda a comunidade de Porto Belo e região. 
+                Através de cultos edificantes, estudos bíblicos aprofundados e ações sociais, trabalhamos para construir um 
+                ambiente acolhedor onde todos possam encontrar o caminho da salvação e viver uma vida plena em Cristo.
+            </p>
+            <p>
+                Com valores fundamentados na Palavra de Deus, promovemos a união familiar, o desenvolvimento espiritual 
+                e o crescimento pessoal de cada irmão. Nossa visão é ser uma igreja que impacta positivamente a sociedade, 
+                levando luz e esperança a todos que necessitam do amor transformador de Jesus Cristo.
+            </p>
+        </div>
+    </section>
+
+    <!-- Seção Credencial -->
+    <section id="credencial" class="secao">
+        <div class="container">
+            <h3>Credencial Pastoral</h3>
+            <div class="credencial-info">
+                <h4>Informações Ministeriais</h4>
+                <div class="credencial-grid">
+                    <p><strong>Nome Completo:</strong> Haroldo Lopes Morais</p>
+                    <p><strong>Cargo:</strong> Pastor Presidente</p>
+                    <p><strong>Data de Nascimento:</strong> 30 de setembro de 1975</p>
+                    <p><strong>Naturalidade:</strong> Cananeia, São Paulo</p>
+                    <p><strong>Formação:</strong> Bacharel em Teologia</p>
+                    <p><strong>Igreja:</strong> IEADB - Renovação Nova Fé</p>
+                    <p><strong>Localização:</strong> Porto Belo, Santa Catarina</p>
+                    <p><strong>Estado Civil:</strong> Casado</p>
+                </div>
+                
+                <p class="credencial-destaque">
+                    Pastor consagrado e dedicado ao ministério da Palavra, com anos de experiência na liderança 
+                    espiritual e no pastoreio do rebanho de Cristo. Comprometido com a expansão do Reino de Deus 
+                    e o crescimento espiritual da congregação.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção de Contato -->
+    <section class="secao contato">
+        <div class="container">
+            <h3>Entre em Contato</h3>
+            <p style="font-size: 1.3rem; margin-bottom: 2rem;">
+                Seja bem-vindo à nossa igreja! Estamos aqui para servir a Deus e à nossa comunidade.
+            </p>
+            <div class="contato-info">
+                <p><strong>Localização:</strong> Porto Belo, Santa Catarina</p>
+                <p><strong>Igreja:</strong> Assembleia de Deus — Renovação Nova Fé</p>
+                <p><strong>Pastor:</strong> Haroldo Lopes Morais</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Igreja Evangélica Assembleia de Deus — Renovação Nova Fé</p>
+            <p>Pastor Haroldo Lopes Morais - Porto Belo, SC</p>
+            <p>Desenvolvido para a glória de Deus</p>
+        </div>
+    </footer>
+
+    <script>
+        // Animações suaves ao carregar
+        document.addEventListener('DOMContentLoaded', function() {
+            // Smooth scroll para links internos
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+
+            // Animação de entrada
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            });
+
+            // Observar elementos para animação
+            document.querySelectorAll('.secao').forEach((el) => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(20px)';
+                el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(el);
+            });
+        });
+    </script>
+</body>
+</html>
