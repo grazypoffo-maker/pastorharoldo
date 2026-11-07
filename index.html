@@ -6,6 +6,9 @@
     <title>Pastor Haroldo Lopes Morais - Pastor Presidente</title>
     <meta name="description" content="Pastor Haroldo Lopes Morais - Pastor Presidente da Igreja Evangélica Assembleia de Deus Renovação Nova Fé em Porto Belo, SC">
     <meta name="keywords" content="Pastor Haroldo, Igreja Assembleia de Deus, Porto Belo, Renovação Nova Fé, pastor presidente">
+    <!-- Marca o documento como "com JavaScript". Os estados ocultos das animações só valem com essa marca,
+         então, sem JS, todo o conteúdo continua visível. -->
+    <script>document.documentElement.classList.add('js');</script>
     <style>
         /* CSS Reset e Base */
         * {
@@ -28,6 +31,14 @@
             --cor-texto: #333333;
             --cor-texto-secundario: #666666;
             --cor-destaque: #2d5a3d;
+            --suave: cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        /* Rolagem suave entre seções (desligada em prefers-reduced-motion) */
+        @media (prefers-reduced-motion: no-preference) {
+            html {
+                scroll-behavior: smooth;
+            }
         }
 
         /* Gradiente principal */
@@ -54,6 +65,31 @@
         .header-content {
             text-align: center;
             width: 100%;
+        }
+
+        /* Logo e foto (declaradas antes das media queries para que o ajuste mobile funcione) */
+        .logo-igreja {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            object-fit: cover;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            transition: transform 0.4s var(--suave), box-shadow 0.4s ease;
+        }
+
+        .foto-pastor {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 1.5rem;
+            display: block;
+            border: 4px solid var(--cor-branco);
+            box-shadow: 0 6px 25px rgba(0,0,0,0.2);
+            transition: transform 0.4s var(--suave), box-shadow 0.4s ease;
         }
 
         /* Informações principais */
@@ -116,25 +152,51 @@
             text-decoration: none;
             border-radius: 30px;
             font-weight: 600;
-            transition: all 0.3s ease;
             font-size: 1.1rem;
+            border: 2px solid var(--cor-destaque);
+            transition: background-color 0.25s ease, color 0.25s ease,
+                        box-shadow 0.25s ease, transform 0.25s var(--suave);
         }
 
-        .nav-button:hover {
-            background: #1e3d29;
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(45, 90, 61, 0.4);
+        .nav-button:active {
+            transform: translateY(0) scale(0.98);
+            box-shadow: none;
+        }
+
+        .nav-button:focus-visible {
+            outline: 3px solid var(--cor-destaque);
+            outline-offset: 3px;
         }
 
         .nav-button.secondary {
             background: transparent;
             color: var(--cor-destaque);
-            border: 2px solid var(--cor-destaque);
         }
 
-        .nav-button.secondary:hover {
-            background: var(--cor-destaque);
-            color: white;
+        /* Hover só em dispositivos com mouse (evita "hover preso" no celular) */
+        @media (hover: hover) {
+            .nav-button:hover {
+                background: #1e3d29;
+                border-color: #1e3d29;
+                transform: translateY(-3px);
+                box-shadow: 0 6px 20px rgba(45, 90, 61, 0.4);
+            }
+
+            .nav-button.secondary:hover {
+                background: var(--cor-destaque);
+                border-color: var(--cor-destaque);
+                color: white;
+            }
+
+            .foto-pastor:hover {
+                transform: scale(1.03);
+                box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+            }
+
+            .logo-igreja:hover {
+                transform: scale(1.05);
+                box-shadow: 0 8px 22px rgba(0,0,0,0.2);
+            }
         }
 
         /* Seções de conteúdo */
@@ -198,8 +260,10 @@
             margin-top: 2rem;
         }
 
-        /* Seção de contato */
-        .contato {
+        /* Seção de contato
+           (.secao.contato tem a mesma especificidade de .secao:nth-child(even) e vem depois,
+            então o fundo verde-escuro prevalece e o texto branco fica legível) */
+        .secao.contato {
             background: var(--cor-destaque);
             color: white;
             text-align: center;
@@ -312,50 +376,83 @@
             }
         }
 
-        .logo-igreja {
-            width: 160px;
-            height: 160px;
-            border-radius: 50%;
-            object-fit: cover;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
-            position: absolute;
-            top: 1.5rem;
-            right: 1.5rem;
-        }
+        /* ===== Animações ===== */
 
-        .foto-pastor {
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin: 0 auto 1.5rem;
-            display: block;
-            border: 4px solid var(--cor-branco);
-            box-shadow: 0 6px 25px rgba(0,0,0,0.2);
-        }
-
-        /* Animações */
-        .fade-in {
-            opacity: 0;
-            animation: fadeIn 1s ease-in forwards;
-        }
-
-        @keyframes fadeIn {
-            to {
-                opacity: 1;
+        /* 1) Entrada do topo (CSS puro, roda uma vez ao carregar).
+              "backwards" só aplica o estado inicial durante o atraso; depois a animação
+              termina e o elemento volta ao estilo normal. Se a animação não rodar,
+              o conteúdo continua visível. */
+        @keyframes entrada {
+            from {
+                opacity: 0;
+                transform: translateY(16px);
             }
         }
 
-        .slide-up {
-            opacity: 0;
-            transform: translateY(30px);
-            animation: slideUp 0.8s ease-out forwards;
+        @keyframes zoom-suave {
+            from {
+                opacity: 0;
+                transform: scale(0.92);
+            }
         }
 
-        @keyframes slideUp {
-            to {
+        .logo-igreja {
+            animation: zoom-suave 0.9s var(--suave) 0.1s backwards;
+        }
+
+        .foto-pastor {
+            animation: zoom-suave 0.9s var(--suave) backwards;
+        }
+
+        .entrada {
+            animation: entrada 0.8s var(--suave) backwards;
+            animation-delay: var(--d, 0s);
+        }
+
+        /* Itens do cartão de dados pessoais aparecem em sequência curta */
+        .dados-pessoais p {
+            animation: entrada 0.6s var(--suave) backwards;
+            animation-delay: calc(0.6s + var(--i, 0) * 60ms);
+        }
+
+        .dados-pessoais p:nth-child(2) { --i: 1; }
+        .dados-pessoais p:nth-child(3) { --i: 2; }
+        .dados-pessoais p:nth-child(4) { --i: 3; }
+        .dados-pessoais p:nth-child(5) { --i: 4; }
+        .dados-pessoais p:nth-child(6) { --i: 5; }
+
+        /* 2) Revelação ao rolar. Só esconde se o JavaScript estiver ativo (classe "js"). */
+        .js .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.7s var(--suave), transform 0.7s var(--suave);
+            transition-delay: calc(var(--i, 0) * 80ms);
+            will-change: opacity, transform;
+        }
+
+        .js .reveal.is-visible {
+            opacity: 1;
+            transform: none;
+            will-change: auto;
+        }
+
+        .container > .reveal:nth-child(2) { --i: 1; }
+        .container > .reveal:nth-child(3) { --i: 2; }
+        .container > .reveal:nth-child(4) { --i: 3; }
+
+        /* 3) Acessibilidade: sem movimento para quem pede menos animação */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation: none !important;
+                transition: none !important;
+                scroll-behavior: auto !important;
+            }
+
+            .js .reveal {
                 opacity: 1;
-                transform: translateY(0);
+                transform: none;
             }
         }
     </style>
@@ -364,25 +461,25 @@
     <!-- Header com gradiente -->
     <header class="header gradiente-ui">
         <div class="container">
-            <div class="header-content fade-in">
+            <div class="header-content">
                 <img src="logo.png" alt="Logo IEADB Renovação Nova Fé" class="logo-igreja">
                 <img src="pastor.jpg" alt="Pastor Haroldo Lopes Morais" class="foto-pastor">
-                <h1>Pastor Haroldo Lopes Morais</h1>
-                <h2>Pastor Presidente</h2>
-                <p class="igreja-nome">
+                <h1 class="entrada" style="--d: 0.2s">Pastor Haroldo Lopes Morais</h1>
+                <h2 class="entrada" style="--d: 0.3s">Pastor Presidente</h2>
+                <p class="igreja-nome entrada" style="--d: 0.4s">
                     Igreja Evangélica Assembleia de Deus — Renovação Nova Fé
                 </p>
                 
-                <div class="dados-pessoais slide-up">
+                <div class="dados-pessoais entrada" style="--d: 0.5s">
                     <p><strong>Estado Civil:</strong> Casado com a Pastora Graziela Morais</p>
                     <p><strong>Filhos:</strong> Lucas, Bruno e Arthur</p>
-                    <p><strong>Formação:</strong> Bacharel em Teologia</p>
+                    <p><strong>Formação:</strong> Bacharel em Teologia e Capelania</p>
                     <p><strong>Natural:</strong> Cananeia (SP)</p>
                     <p><strong>Residência:</strong> Porto Belo, SC</p>
                     <p><strong>Ministério:</strong> Pastor Presidente</p>
                 </div>
 
-                <div class="nav-buttons">
+                <div class="nav-buttons entrada" style="--d: 1s">
                     <a href="#missao" class="nav-button">Nossa Missão</a>
                     <a href="#credencial" class="nav-button secondary">Credencial</a>
                 </div>
@@ -393,18 +490,18 @@
     <!-- Seção Missão/Sobre a Igreja -->
     <section id="missao" class="secao">
         <div class="container">
-            <h3>Missão / Sobre a Igreja</h3>
-            <p>
+            <h3 class="reveal">Missão / Sobre a Igreja</h3>
+            <p class="reveal">
                 A Igreja Evangélica Assembleia de Deus — Renovação Nova Fé tem como missão principal levar a palavra de Deus 
                 a todos os corações, promovendo a transformação de vidas através do amor de Cristo. Sob a liderança do Pastor 
                 Haroldo Lopes Morais, nossa congregação se dedica ao crescimento espiritual e ao fortalecimento da fé de cada membro.
             </p>
-            <p>
+            <p class="reveal">
                 Nossa igreja busca ser um refúgio de esperança e renovação para toda a comunidade de Porto Belo e região. 
                 Através de cultos edificantes, estudos bíblicos aprofundados e ações sociais, trabalhamos para construir um 
                 ambiente acolhedor onde todos possam encontrar o caminho da salvação e viver uma vida plena em Cristo.
             </p>
-            <p>
+            <p class="reveal">
                 Com valores fundamentados na Palavra de Deus, promovemos a união familiar, o desenvolvimento espiritual 
                 e o crescimento pessoal de cada irmão. Nossa visão é ser uma igreja que impacta positivamente a sociedade, 
                 levando luz e esperança a todos que necessitam do amor transformador de Jesus Cristo.
@@ -415,15 +512,15 @@
     <!-- Seção Credencial -->
     <section id="credencial" class="secao">
         <div class="container">
-            <h3>Credencial Pastoral</h3>
-            <div class="credencial-info">
+            <h3 class="reveal">Credencial Pastoral</h3>
+            <div class="credencial-info reveal">
                 <h4>Informações Ministeriais</h4>
                 <div class="credencial-grid">
                     <p><strong>Nome Completo:</strong> Haroldo Lopes Morais</p>
                     <p><strong>Cargo:</strong> Pastor Presidente</p>
                     <p><strong>Data de Nascimento:</strong> 30 de setembro de 1975</p>
                     <p><strong>Naturalidade:</strong> Cananeia, São Paulo</p>
-                    <p><strong>Formação:</strong> Bacharel em Teologia</p>
+                    <p><strong>Formação:</strong> Bacharel em Teologia e Capelania</p>
                     <p><strong>Igreja:</strong> IEADB - Renovação Nova Fé</p>
                     <p><strong>Localização:</strong> Porto Belo, Santa Catarina</p>
                     <p><strong>Estado Civil:</strong> Casado</p>
@@ -441,11 +538,11 @@
     <!-- Seção de Contato -->
     <section class="secao contato">
         <div class="container">
-            <h3>Entre em Contato</h3>
-            <p style="font-size: 1.3rem; margin-bottom: 2rem;">
+            <h3 class="reveal">Entre em Contato</h3>
+            <p class="reveal" style="font-size: 1.3rem; margin-bottom: 2rem;">
                 Seja bem-vindo à nossa igreja! Estamos aqui para servir a Deus e à nossa comunidade.
             </p>
-            <div class="contato-info">
+            <div class="contato-info reveal">
                 <p><strong>Localização:</strong> Porto Belo, Santa Catarina</p>
                 <p><strong>Igreja:</strong> Assembleia de Deus — Renovação Nova Fé</p>
                 <p><strong>Pastor:</strong> Haroldo Lopes Morais</p>
@@ -463,40 +560,34 @@
     </footer>
 
     <script>
-        // Animações suaves ao carregar
-        document.addEventListener('DOMContentLoaded', function() {
-            // Smooth scroll para links internos
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    const target = document.querySelector(this.getAttribute('href'));
-                    if (target) {
-                        target.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'start'
-                        });
-                    }
-                });
-            });
+        // Revelação das seções ao rolar a página
+        (function () {
+            try {
+                var itens = Array.prototype.slice.call(document.querySelectorAll('.reveal'));
+                var menosMovimento = window.matchMedia &&
+                    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-            // Animação de entrada
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.style.opacity = '1';
-                        entry.target.style.transform = 'translateY(0)';
-                    }
-                });
-            });
+                // Sem suporte ou com "menos movimento": mostra tudo de uma vez
+                if (menosMovimento || !('IntersectionObserver' in window)) {
+                    itens.forEach(function (el) { el.classList.add('is-visible'); });
+                    return;
+                }
 
-            // Observar elementos para animação
-            document.querySelectorAll('.secao').forEach((el) => {
-                el.style.opacity = '0';
-                el.style.transform = 'translateY(20px)';
-                el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-                observer.observe(el);
-            });
-        });
+                var observer = new IntersectionObserver(function (entradas, obs) {
+                    entradas.forEach(function (entrada) {
+                        if (entrada.isIntersecting) {
+                            entrada.target.classList.add('is-visible');
+                            obs.unobserve(entrada.target); // anima só uma vez
+                        }
+                    });
+                }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+
+                itens.forEach(function (el) { observer.observe(el); });
+            } catch (erro) {
+                // Se algo falhar, remove a marca "js" e o conteúdo fica visível normalmente
+                document.documentElement.classList.remove('js');
+            }
+        })();
     </script>
 </body>
 </html>
