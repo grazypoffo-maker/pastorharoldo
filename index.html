@@ -5,6 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pastor Haroldo Lopes Morais - Pastor Presidente</title>
     <meta name="description" content="Pastor Haroldo Lopes Morais - Pastor Presidente da Igreja Evangélica Assembleia de Deus Renovação Nova Fé em Porto Belo, SC">
+    <link rel="icon" type="image/png" href="logo.png">
+    <link rel="canonical" href="https://grazypoffo-maker.github.io/pastorharoldo/">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="pt_BR">
+    <meta property="og:title" content="Pastor Haroldo Lopes Morais | Renovação Nova Fé">
+    <meta property="og:description" content="Conheça o Pastor Haroldo Lopes Morais e a missão da Igreja Assembleia de Deus — Renovação Nova Fé, em Porto Belo, SC.">
+    <meta property="og:url" content="https://grazypoffo-maker.github.io/pastorharoldo/">
+    <meta property="og:image" content="https://grazypoffo-maker.github.io/pastorharoldo/pastor.jpg">
+    <meta property="og:image:alt" content="Pastor Haroldo Lopes Morais">
+    <meta name="twitter:card" content="summary">
     <meta name="keywords" content="Pastor Haroldo, Igreja Assembleia de Deus, Porto Belo, Renovação Nova Fé, pastor presidente">
     <!-- Marca o documento como "com JavaScript". Os estados ocultos das animações só valem com essa marca,
          então, sem JS, todo o conteúdo continua visível. -->
@@ -93,14 +103,14 @@
         }
 
         /* Informações principais */
-        .info-principal h1 {
+        .header-content h1 {
             font-size: 3rem;
             color: var(--cor-destaque);
             margin-bottom: 0.5rem;
             font-weight: 700;
         }
 
-        .info-principal h2 {
+        .header-content .cargo {
             font-size: 1.8rem;
             color: var(--cor-texto-secundario);
             font-weight: 400;
@@ -208,7 +218,7 @@
             background-color: var(--cor-verde-claro);
         }
 
-        .secao h3 {
+        .secao h2 {
             font-size: 2.5rem;
             color: var(--cor-destaque);
             margin-bottom: 2rem;
@@ -218,7 +228,7 @@
         .secao p {
             font-size: 1.2rem;
             margin-bottom: 1.5rem;
-            text-align: justify;
+            text-align: left;
             line-height: 1.8;
         }
 
@@ -230,7 +240,7 @@
             margin-top: 2rem;
         }
 
-        .credencial-info h4 {
+        .credencial-info h3 {
             color: var(--cor-destaque);
             margin-bottom: 2rem;
             font-size: 1.8rem;
@@ -269,7 +279,7 @@
             text-align: center;
         }
 
-        .contato h3 {
+        .contato h2 {
             color: white;
         }
 
@@ -294,11 +304,11 @@
 
         /* Responsividade */
         @media (max-width: 768px) {
-            .info-principal h1 {
+            .header-content h1 {
                 font-size: 2.2rem;
             }
 
-            .info-principal h2 {
+            .header-content .cargo {
                 font-size: 1.3rem;
             }
 
@@ -330,7 +340,7 @@
                 padding: 2.5rem 1rem;
             }
 
-            .secao h3 {
+            .secao h2 {
                 font-size: 2rem;
             }
 
@@ -356,7 +366,7 @@
                 min-height: auto;
             }
 
-            .info-principal h1 {
+            .header-content h1 {
                 font-size: 1.8rem;
             }
 
@@ -455,17 +465,37 @@
                 transform: none;
             }
         }
+        /* Leitura confortável, navegação e foco de teclado */
+        .secao > .container { max-width: 860px; }
+        section { scroll-margin-top: 1.5rem; }
+        .pular-conteudo {
+            position: fixed; top: 1rem; left: 1rem; z-index: 10;
+            padding: .75rem 1rem; background: #1e3d29; color: white;
+            border-radius: .5rem; transform: translateY(-180%);
+        }
+        .pular-conteudo:focus { transform: translateY(0); }
+        a:focus-visible { outline: 3px solid #2d5a3d; outline-offset: 4px; }
+        .contato-info p, .contato > .container > p { text-align: center; }
+        @media (max-width: 768px) {
+            .header-content { padding-top: 4rem; }
+            .nav-button { max-width: 100%; }
+            .secao p { line-height: 1.75; }
+        }
+        @media (max-width: 480px) {
+            .header-content { padding-top: 3rem; }
+        }
     </style>
 </head>
 <body>
+    <a class="pular-conteudo" href="#conteudo">Pular para o conteúdo</a>
     <!-- Header com gradiente -->
     <header class="header gradiente-ui">
         <div class="container">
             <div class="header-content">
-                <img src="logo.png" alt="Logo IEADB Renovação Nova Fé" class="logo-igreja">
-                <img src="pastor.jpg" alt="Pastor Haroldo Lopes Morais" class="foto-pastor">
+                <img width="160" height="160" src="logo.png" alt="Logo IEADB Renovação Nova Fé" class="logo-igreja">
+                <img width="200" height="200" fetchpriority="high" src="pastor.jpg" alt="Pastor Haroldo Lopes Morais" class="foto-pastor">
                 <h1 class="entrada" style="--d: 0.2s">Pastor Haroldo Lopes Morais</h1>
-                <h2 class="entrada" style="--d: 0.3s">Pastor Presidente</h2>
+                <p class="cargo entrada" style="--d: 0.3s">Pastor Presidente</p>
                 <p class="igreja-nome entrada" style="--d: 0.4s">
                     Igreja Evangélica Assembleia de Deus — Renovação Nova Fé
                 </p>
@@ -479,18 +509,20 @@
                     <p><strong>Ministério:</strong> Pastor Presidente</p>
                 </div>
 
-                <div class="nav-buttons entrada" style="--d: 1s">
+                <nav aria-label="Navegação principal" class="nav-buttons entrada" style="--d: 1s">
                     <a href="#missao" class="nav-button">Nossa Missão</a>
                     <a href="#credencial" class="nav-button secondary">Credencial</a>
-                </div>
+                    <a href="#contato" class="nav-button secondary">Contato</a>
+                </nav>
             </div>
         </div>
     </header>
 
+    <main id="conteudo" tabindex="-1">
     <!-- Seção Missão/Sobre a Igreja -->
     <section id="missao" class="secao">
         <div class="container">
-            <h3 class="reveal">Missão / Sobre a Igreja</h3>
+            <h2 class="reveal">Missão / Sobre a Igreja</h2>
             <p class="reveal">
                 A Igreja Evangélica Assembleia de Deus — Renovação Nova Fé tem como missão principal levar a palavra de Deus 
                 a todos os corações, promovendo a transformação de vidas através do amor de Cristo. Sob a liderança do Pastor 
@@ -512,9 +544,9 @@
     <!-- Seção Credencial -->
     <section id="credencial" class="secao">
         <div class="container">
-            <h3 class="reveal">Credencial Pastoral</h3>
+            <h2 class="reveal">Credencial Pastoral</h2>
             <div class="credencial-info reveal">
-                <h4>Informações Ministeriais</h4>
+                <h3>Informações Ministeriais</h3>
                 <div class="credencial-grid">
                     <p><strong>Nome Completo:</strong> Haroldo Lopes Morais</p>
                     <p><strong>Cargo:</strong> Pastor Presidente</p>
@@ -536,9 +568,9 @@
     </section>
 
     <!-- Seção de Contato -->
-    <section class="secao contato">
+    <section id="contato" class="secao contato" aria-labelledby="titulo-contato">
         <div class="container">
-            <h3 class="reveal">Entre em Contato</h3>
+            <h2 id="titulo-contato" class="reveal">Conheça nossa igreja</h2>
             <p class="reveal" style="font-size: 1.3rem; margin-bottom: 2rem;">
                 Seja bem-vindo à nossa igreja! Estamos aqui para servir a Deus e à nossa comunidade.
             </p>
@@ -550,16 +582,20 @@
         </div>
     </section>
 
+    </main>
+
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            <p>&copy; 2024 Igreja Evangélica Assembleia de Deus — Renovação Nova Fé</p>
+            <p>&copy; <span id="ano-atual">2026</span> Igreja Evangélica Assembleia de Deus — Renovação Nova Fé</p>
             <p>Pastor Haroldo Lopes Morais - Porto Belo, SC</p>
             <p>Desenvolvido para a glória de Deus</p>
         </div>
     </footer>
 
     <script>
+        document.getElementById("ano-atual").textContent = new Date().getFullYear();
+
         // Revelação das seções ao rolar a página
         (function () {
             try {
